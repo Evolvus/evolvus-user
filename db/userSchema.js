@@ -1,8 +1,15 @@
-const mongoose = require(mongoose);
-const validator = require(validator);
+const mongoose = require('mongoose');
+const validator = require('validator');
 
-var branchSchema = require('evolvus-branch').branchSchema;
-var contactSchema = require('evolvus-contact').contactSchema;
+const { application } = require('evolvus-application');
+const { role } = require('evolvus-role');
+const { entity } = require('evolvus-entity');
+const { contact } = require("evolvus-contact");
+
+const Application = mongoose.model("applicationCollection", application.applicationDBSchema);
+const Contact = mongoose.model("contactCollection", contact.contactDBschema);
+const Entity = mongoose.model("entityCollection", entity.entityDBschema);
+const Role = mongoose.model("roleCollection", role.roleDBschema);
 
 var userSchema = new mongoose.Schema({
     // Add all attributes below tenantId
@@ -12,8 +19,22 @@ var userSchema = new mongoose.Schema({
         minLength: 1,
         maxLength: 64
     },
-    contact: contactSchema,
-    branch: branchSchema,
+    application: {
+        type: Object,
+        ref: 'Application'
+    },
+    contact: {
+        type: Object,
+        ref: 'Contact'
+    },
+    entity: {
+        type: Object,
+        ref: 'Entity'
+    },
+    role: {
+        type: Object,
+        ref: 'Role'
+    },
     userName: {
         type: String,
         required: true
@@ -37,18 +58,18 @@ var userSchema = new mongoose.Schema({
         type: Date
     },
     enabledFlag: {
-        type: number,
+        type: Number,
         default: 1
     },
     deletedFlag: {
-        type: number,
+        type: Number,
         default: 0
     },
     activationStatus: {
-        type: string
+        type: String
     },
     processingStatus: {
-        type: string
+        type: String
     }
 
 });
