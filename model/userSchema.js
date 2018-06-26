@@ -21,6 +21,9 @@ module.exports.schema = {
             "minLength": 1,
             "maxLength": 64
         },
+        "saltString": {
+            "type": "string"
+        },
         "entity": {
             "type": "object",
             "properties": {
