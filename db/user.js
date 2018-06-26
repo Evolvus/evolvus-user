@@ -142,7 +142,7 @@ module.exports.authenticate = (credentials) => {
             userCollection.find({
                     userName: credentials.userName,
                     userPassword: credentials.userPassword,
-                    application: credentials.application
+                    application.applicationCode: credentials.application
                 })
                 .then((res) => {
                     debug("authentication successful: ", res);
