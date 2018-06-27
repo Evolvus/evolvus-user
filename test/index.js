@@ -20,12 +20,121 @@ const db = require("../db/user");
 describe('user model validation', () => {
   let userObject = {
     // add a valid user Object here
+    tenantId: "IVL",
+    userName: "pavithra",
+    userPassword: "Pavithra@30",
+    branch: {
+      tenantId: "IVL",
+      code: "IBB123",
+      name: "Hosur",
+      contact: {
+        tenantId: "IVL",
+        fristName: "pavithra",
+        middleName: "T",
+        lastname: "Thimmappa",
+        email: "Pavithrakit30@gmail.com",
+        emailVerified: true,
+        phoneNo: "7708387762",
+        mobileNo: "9999888800",
+        mobileVerified: false,
+        faxNumber: "12345678fax",
+        companyName: "Evolvus",
+        Address1: "Banglore",
+        Address2: "Banglore",
+        city: "Banglore",
+        state: "karnataka",
+        country: "India",
+        zipCode: "kct123"
 
+      }
+    },
+    contact: {
+
+      tenantId: "IVL",
+      fristName: "pavithra",
+      middleName: "T",
+      lastname: "Thimmappa",
+      email: "Pavithrakit130@gmail.com",
+      emailVerified: true,
+      phoneNo: "7708387762",
+      mobileNo: "9999888800",
+      mobileVerified: false,
+      faxNumber: "12345678fax",
+      companyName: "Evolvus",
+      Address1: "Banglore",
+      Address2: "Banglore",
+      city: "Banglore",
+      state: "karnataka",
+      country: "India",
+      zipCode: "kct123"
+    },
+    createdBy: "pavithra",
+    updatedBy: "pavithra",
+    createdDate: new Date().toISOString(),
+    lastUpdatedDate: new Date().toISOString(),
+    enableFlag: 1,
+    deletedFlag: 0,
+    activationStatus: "active",
+    processingStatus: "unauthorized"
   };
 
   let invalidObject={
     //add invalid user Object here
+    userName: "pavithra",
+    userPassword: "Pavithra@30",
+    branch: {
+      tenantId: "IVL",
+      code: "IBB123",
+      name: "Hosur",
+      contact: {
+        tenantId: "IVL",
+        fristName: "pavithra",
+        middleName: "T",
+        lastname: "Thimmappa",
+        email: "Pavithrakit230@gmail.com",
+        emailVerified: true,
+        phoneNo: "7708387762",
+        mobileNo: "9999888800",
+        mobileVerified: false,
+        faxNumber: "12345678fax",
+        companyName: "Evolvus",
+        Address1: "Banglore",
+        Address2: "Banglore",
+        city: "Banglore",
+        state: "karnataka",
+        country: "India",
+        zipCode: "kct123"
 
+      }
+    },
+    contact: {
+
+      tenantId: "IVL",
+      fristName: "pavithra",
+      middleName: "T",
+      lastname: "Thimmappa",
+      email: "Pavithrakit330@gmail.com",
+      emailVerified: true,
+      phoneNo: "7708387762",
+      mobileNo: "9999888800",
+      mobileVerified: false,
+      faxNumber: "12345678fax",
+      companyName: "Evolvus",
+      Address1: "Banglore",
+      Address2: "Banglore",
+      city: "Banglore",
+      state: "karnataka",
+      country: "India",
+      zipCode: "kct123"
+    },
+    createdBy: "pavithra",
+    updatedBy: "pavithra",
+    createdDate: new Date().toISOString(),
+    lastUpdatedDate: new Date().toISOString(),
+    enableFlag: 1,
+    deletedFlag: 0,
+    activationStatus: "active",
+    processingStatus: "unauthorized"
   };
 
   let undefinedObject; // object that is not defined
@@ -103,8 +212,8 @@ describe('user model validation', () => {
         var result = user.save(userObject);
         //replace anyAttribute with one of the valid attribute of a user Object
         expect(result)
-          .to.eventually.have.property("anyAttribute")
-          .to.eql(userObject.anyAttribute)
+          .to.eventually.have.property("userName")
+          .to.eql(userObject.userName)
           .notify(done);
       } catch (e) {
         expect.fail(e, null, `saving user object should not throw exception: ${e}`);
@@ -127,16 +236,185 @@ describe('user model validation', () => {
   describe('testing user.getAll when there is data in database', () => {
     let object1={
       //add one valid user object here
+      tenantId: "IVL",
+      userName: "pavithra",
+      userPassword: "Pavithra@30",
+      branch: {
+        tenantId: "IVL",
+        code: "IBB123",
+        name: "Hosur",
+        contact: {
+          tenantId: "IVL",
+          fristName: "pavithra",
+          middleName: "T",
+          lastname: "Thimmappa",
+          email: "Pavithrakit430@gmail.com",
+          emailVerified: true,
+          phoneNo: "7708387762",
+          mobileNo: "9999888800",
+          mobileVerified: false,
+          faxNumber: "12345678fax",
+          companyName: "Evolvus",
+          Address1: "Banglore",
+          Address2: "Banglore",
+          city: "Banglore",
+          state: "karnataka",
+          country: "India",
+          zipCode: "kct123"
 
+        }
+      },
+      contact: {
+
+        tenantId: "IVL",
+        fristName: "pavithra",
+        middleName: "T",
+        lastname: "Thimmappa",
+        email: "Pavithrakit530@gmail.com",
+        emailVerified: true,
+        phoneNo: "7708387762",
+        mobileNo: "9999888800",
+        mobileVerified: false,
+        faxNumber: "12345678fax",
+        companyName: "Evolvus",
+        Address1: "Banglore",
+        Address2: "Banglore",
+        city: "Banglore",
+        state: "karnataka",
+        country: "India",
+        zipCode: "kct123"
+      },
+      createdBy: "pavithra",
+      updatedBy: "pavithra",
+      createdDate: new Date().toISOString(),
+      lastUpdatedDate: new Date().toISOString(),
+      enableFlag: 1,
+      deletedFlag: 0,
+      activationStatus: "active",
+      processingStatus: "unauthorized"
     },object2={
       //add one more valid user object here
+      tenantId: "IVL",
+      userName: "pavithra1",
+      userPassword: "Pavithra@30",
+      branch: {
+        tenantId: "IVL",
+        code: "IBB123",
+        name: "Hosur",
+        contact: {
+          tenantId: "IVL",
+          fristName: "pavithra",
+          middleName: "T",
+          lastname: "Thimmappa",
+          email: "Pavithrakit630@gmail.com",
+          emailVerified: true,
+          phoneNo: "7708387762",
+          mobileNo: "9999888800",
+          mobileVerified: false,
+          faxNumber: "12345678fax",
+          companyName: "Evolvus",
+          Address1: "Banglore",
+          Address2: "Banglore",
+          city: "Banglore",
+          state: "karnataka",
+          country: "India",
+          zipCode: "kct123"
 
+        }
+      },
+      contact: {
+
+        tenantId: "IVL",
+        fristName: "pavithra",
+        middleName: "T",
+        lastname: "Thimmappa",
+        email: "Pavithrakit730@gmail.com",
+        emailVerified: true,
+        phoneNo: "7708387762",
+        mobileNo: "9999888800",
+        mobileVerified: false,
+        faxNumber: "12345678fax",
+        companyName: "Evolvus",
+        Address1: "Banglore",
+        Address2: "Banglore",
+        city: "Banglore",
+        state: "karnataka",
+        country: "India",
+        zipCode: "kct123"
+      },
+      createdBy: "pavithra",
+      updatedBy: "pavithra",
+      createdDate: new Date().toISOString(),
+      lastUpdatedDate: new Date().toISOString(),
+      enableFlag: 1,
+      deletedFlag: 0,
+      activationStatus: "active",
+      processingStatus: "unauthorized"
+    };
+    object3={
+      //add one more valid user object here
+      tenantId: "IVL",
+      userName: "pavithra1",
+      userPassword: "Pavithra@30",
+      branch: {
+        tenantId: "IVL",
+        code: "IBB123",
+        name: "Hosur",
+        contact: {
+          tenantId: "IVL",
+          fristName: "pavithra",
+          middleName: "T",
+          lastname: "Thimmappa",
+          email: "Pavithrakit830@gmail.com",
+          emailVerified: true,
+          phoneNo: "7708387762",
+          mobileNo: "9999888800",
+          mobileVerified: false,
+          faxNumber: "12345678fax",
+          companyName: "Evolvus",
+          Address1: "Banglore",
+          Address2: "Banglore",
+          city: "Banglore",
+          state: "karnataka",
+          country: "India",
+          zipCode: "kct123"
+
+        }
+      },
+      contact: {
+
+        tenantId: "IVL",
+        fristName: "pavithra",
+        middleName: "T",
+        lastname: "Thimmappa",
+        email: "Pavithrakit930@gmail.com",
+        emailVerified: true,
+        phoneNo: "7708387762",
+        mobileNo: "9999888800",
+        mobileVerified: false,
+        faxNumber: "12345678fax",
+        companyName: "Evolvus",
+        Address1: "Banglore",
+        Address2: "Banglore",
+        city: "Banglore",
+        state: "karnataka",
+        country: "India",
+        zipCode: "kct123"
+      },
+      createdBy: "pavithra",
+      updatedBy: "pavithra",
+      createdDate: new Date().toISOString(),
+      lastUpdatedDate: new Date().toISOString(),
+      enableFlag: 1,
+      deletedFlag: 0,
+      activationStatus: "active",
+      processingStatus: "unauthorized"
     };
     beforeEach((done) => {
       db.deleteAll().then((res) => {
         db.save(object1).then((res) => {
           db.save(object2).then((res) => {
-            db.save(object1).then((res)=> {
+            db.save(object3).then((res)=> {
               done();
             });
           });
@@ -254,9 +532,11 @@ describe('user model validation', () => {
     // 4. Query with undefined and it should throw IllegalArgumentException
     var id;
     beforeEach((done) => {
-      db.save(userObject).then((res) => {
-        id = res._id;
-        done();
+      db.deleteAll().then((res)=>{
+        db.save(userObject).then((res) => {
+          id = res._id;
+          done();
+        });
       });
     });
 
@@ -319,10 +599,120 @@ describe('user model validation', () => {
   describe("testing user.getOne",()=> {
     let object1={
       //add one valid user object here
+      tenantId: "IVL",
+      userName: "pavithra",
+      userPassword: "Pavithra@30",
+      branch: {
+        tenantId: "IVL",
+        code: "IBB123",
+        name: "Hosur",
+        contact: {
+          tenantId: "IVL",
+          fristName: "pavithra",
+          middleName: "T",
+          lastname: "Thimmappa",
+          email: "Pavithrakit1130@gmail.com",
+          emailVerified: true,
+          phoneNo: "7708387762",
+          mobileNo: "9999888800",
+          mobileVerified: false,
+          faxNumber: "12345678fax",
+          companyName: "Evolvus",
+          Address1: "Banglore",
+          Address2: "Banglore",
+          city: "Banglore",
+          state: "karnataka",
+          country: "India",
+          zipCode: "kct123"
 
+        }
+      },
+      contact: {
+
+        tenantId: "IVL",
+        fristName: "pavithra",
+        middleName: "T",
+        lastname: "Thimmappa",
+        email: "Pavithrakit1230@gmail.com",
+        emailVerified: true,
+        phoneNo: "7708387762",
+        mobileNo: "9999888800",
+        mobileVerified: false,
+        faxNumber: "12345678fax",
+        companyName: "Evolvus",
+        Address1: "Banglore",
+        Address2: "Banglore",
+        city: "Banglore",
+        state: "karnataka",
+        country: "India",
+        zipCode: "kct123"
+      },
+      createdBy: "pavithra",
+      updatedBy: "pavithra",
+      createdDate: new Date().toISOString(),
+      lastUpdatedDate: new Date().toISOString(),
+      enableFlag: 1,
+      deletedFlag: 0,
+      activationStatus: "active",
+      processingStatus: "unauthorized"
     },object2={
       //add one more valid user object here
+      tenantId: "IVL",
+      userName: "pavithra1",
+      userPassword: "Pavithra@30",
+      branch: {
+        tenantId: "IVL",
+        code: "IBB123",
+        name: "Hosur",
+        contact: {
+          tenantId: "IVL",
+          fristName: "pavithra",
+          middleName: "T",
+          lastname: "Thimmappa",
+          email: "Pavithrakit1330@gmail.com",
+          emailVerified: true,
+          phoneNo: "7708387762",
+          mobileNo: "9999888800",
+          mobileVerified: false,
+          faxNumber: "12345678fax",
+          companyName: "Evolvus",
+          Address1: "Banglore",
+          Address2: "Banglore",
+          city: "Banglore",
+          state: "karnataka",
+          country: "India",
+          zipCode: "kct123"
 
+        }
+      },
+      contact: {
+
+        tenantId: "IVL",
+        fristName: "pavithra",
+        middleName: "T",
+        lastname: "Thimmappa",
+        email: "Pavithrakit1430@gmail.com",
+        emailVerified: true,
+        phoneNo: "7708387762",
+        mobileNo: "9999888800",
+        mobileVerified: false,
+        faxNumber: "12345678fax",
+        companyName: "Evolvus",
+        Address1: "Banglore",
+        Address2: "Banglore",
+        city: "Banglore",
+        state: "karnataka",
+        country: "India",
+        zipCode: "kct123"
+      },
+      createdBy: "pavithra",
+      updatedBy: "pavithra",
+      createdDate: new Date().toISOString(),
+      lastUpdatedDate: new Date().toISOString(),
+      enableFlag: 1,
+      deletedFlag: 0,
+      activationStatus: "active",
+      processingStatus: "unauthorized"
     };
     beforeEach((done) => {
       db.deleteAll().then((res) => {
@@ -337,11 +727,11 @@ describe('user model validation', () => {
     it("should return one user record identified by attribute",(done)=> {
       try {
         // take one attribute from object1 or object2 and its value
-        let res = user.getOne(attribute of object1/object2,its value);
+        let res = user.getOne("userName","pavithra");
         expect(res)
           .to.eventually.be.a("object")
-          .to.have.property('attribute of object1/object2')
-          .to.eql('attribute value')
+          .to.have.property('userName')
+          .to.eql('pavithra')
           .notify(done);
       } catch (e) {
         expect.fail(e, null, `exception: ${e}`);
@@ -351,7 +741,7 @@ describe('user model validation', () => {
     it('should return empty object i.e. {} as no user is identified by this attribute', (done) => {
       try {
         // replace validAttribute and add a bad value to it
-        var res = user.getOne(validAttribute,badValue);
+        var res = user.getOne("userName","hjfhg");
         expect(res).to.eventually.to.eql({})
           .notify(done);
       } catch (e) {
@@ -363,7 +753,7 @@ describe('user model validation', () => {
       try {
         //replace validvalue with a valid value for an attribute
         let undefinedAttribute;
-        let res = user.getOne(undefinedAttribute,validValue);
+        let res = user.getOne(undefinedAttribute,"pavithra");
         expect(res)
           .to.eventually.to.be.rejectedWith("IllegalArgumentException")
           .notify(done);
@@ -376,7 +766,7 @@ describe('user model validation', () => {
       try {
         // replace validAttribute with a valid attribute name
         let undefinedValue;
-        let res = user.getOne(validAttribute,undefinedValue);
+        let res = user.getOne("userName",undefinedValue);
         expect(res)
           .to.eventually.to.be.rejectedWith("IllegalArgumentException")
           .notify(done);
@@ -388,7 +778,7 @@ describe('user model validation', () => {
     it("should throw IllegalArgumentException for null attribute parameter ", (done) => {
       try {
         //replace validValue with a valid value for an attribute
-        let res = user.getOne(null,validValue);
+        let res = user.getOne(null,"pavithra");
         expect(res)
           .to.eventually.to.be.rejectedWith("IllegalArgumentException")
           .notify(done);
@@ -400,7 +790,7 @@ describe('user model validation', () => {
     it("should throw IllegalArgumentException for null value parameter ", (done) => {
       try {
         //replace attributeValue with a valid attribute name
-        let res = user.getOne(attributeValue,null);
+        let res = user.getOne("userName",null);
         expect(res)
           .to.eventually.to.be.rejectedWith("IllegalArgumentException")
           .notify(done);
@@ -414,10 +804,119 @@ describe('user model validation', () => {
   describe("testing user.getMany",()=> {
       let object1={
         //add one valid user object here
+        tenantId: "IVL",
+        userName: "pavithra1",
+        userPassword: "Pavithra@30",
+        branch: {
+          tenantId: "IVL",
+          code: "IBB123",
+          name: "Hosur",
+          contact: {
+            tenantId: "IVL",
+            fristName: "pavithra",
+            middleName: "T",
+            lastname: "Thimmappa",
+            email: "Pavithrakit1530@gmail.com",
+            emailVerified: true,
+            phoneNo: "7708387762",
+            mobileNo: "9999888800",
+            mobileVerified: false,
+            faxNumber: "12345678fax",
+            companyName: "Evolvus",
+            Address1: "Banglore",
+            Address2: "Banglore",
+            city: "Banglore",
+            state: "karnataka",
+            country: "India",
+            zipCode: "kct123"
 
+          }
+        },
+        contact: {
+
+          tenantId: "IVL",
+          fristName: "pavithra",
+          middleName: "T",
+          lastname: "Thimmappa",
+          email: "Pavithrakit1630gmail.com",
+          emailVerified: true,
+          phoneNo: "7708387762",
+          mobileNo: "9999888800",
+          mobileVerified: false,
+          faxNumber: "12345678fax",
+          companyName: "Evolvus",
+          Address1: "Banglore",
+          Address2: "Banglore",
+          city: "Banglore",
+          state: "karnataka",
+          country: "India",
+          zipCode: "kct123"
+        },
+        createdBy: "pavithra",
+        updatedBy: "pavithra",
+        createdDate: new Date().toISOString(),
+        lastUpdatedDate: new Date().toISOString(),
+        enableFlag: 1,
+        deletedFlag: 0,
+        activationStatus: "active",
+        processingStatus: "unauthorized"
       },object2={
         //add one more valid user object here
+        tenantId: "IVL",
+        userName: "pavithra2",
+        userPassword: "Pavithra@30",
+        branch: {
+          tenantId: "IVL",
+          code: "IBB123",
+          name: "Hosur",
+          contact: {
+            tenantId: "IVL",
+            fristName: "pavithra",
+            middleName: "T",
+            lastname: "Thimmappa",
+            email: "Pavithrakit1730gmail.com",
+            emailVerified: true,
+            phoneNo: "77083877",
+            mobileNo: "9999888800",
+            mobileVerified: false,
+            faxNumber: "12345678fax",
+            companyName: "Evolvus",
+            Address1: "Banglore",
+            Address2: "Banglore",
+            city: "Banglore",
+            state: "karnataka",
+            country: "India",
+            zipCode: "kct123"
+          }
+        },
+        contact: {
 
+          tenantId: "IVL",
+          fristName: "pavithra",
+          middleName: "T",
+          lastname: "Thimmappa",
+          email: "Pavithrakit1830@gmail.com",
+          emailVerified: true,
+          phoneNo: "7708387762",
+          mobileNo: "9999888800",
+          mobileVerified: false,
+          faxNumber: "12345678fax",
+          companyName: "Evolvus",
+          Address1: "Banglore",
+          Address2: "Banglore",
+          city: "Banglore",
+          state: "karnataka",
+          country: "India",
+          zipCode: "kct123"
+        },
+        createdBy: "pavithra",
+        updatedBy: "pavithra",
+        createdDate: new Date().toISOString(),
+        lastUpdatedDate: new Date().toISOString(),
+        enableFlag: 1,
+        deletedFlag: 0,
+        activationStatus: "active",
+        processingStatus: "unauthorized"
       };
       beforeEach((done) => {
         db.deleteAll().then((res) => {
@@ -432,11 +931,11 @@ describe('user model validation', () => {
       it("should return array of user records identified by attribute",(done)=> {
         try {
           // take one attribute from object1 or object2 and its value
-          let res = user.getMany(attribute of object1/object2,its value);
-          expect(res).to.eventually.be.a("array");
+          let res = user.getMany("userName","pavithra1");
+          expect(res).to.eventually.be.a("array")
           //enter proper length according to input value
-          expect(res).to.eventually.have.length(1);
-          done();
+          .to.have.length(1)
+          .notify(done);
         } catch (e) {
           expect.fail(e, null, `exception: ${e}`);
         }
@@ -445,7 +944,7 @@ describe('user model validation', () => {
       it('should return empty array i.e. [] as no user is identified by this attribute', (done) => {
         try {
           // replace validAttribute and add a bad value to it
-          var res = user.getMany(validAttribute,badValue);
+          var res = user.getMany("userName","uydfgvb");
           expect(res).to.eventually.to.eql([])
             .notify(done);
         } catch (e) {
@@ -457,7 +956,7 @@ describe('user model validation', () => {
         try {
           //replace validvalue with a valid value for an attribute
           let undefinedAttribute;
-          let res = user.getMany(undefinedAttribute,validValue);
+          let res = user.getMany(undefinedAttribute,"pavithta");
           expect(res)
             .to.eventually.to.be.rejectedWith("IllegalArgumentException")
             .notify(done);
@@ -470,7 +969,7 @@ describe('user model validation', () => {
         try {
           // replace validAttribute with a valid attribute name
           let undefinedValue;
-          let res = user.getMany(validAttribute,undefinedValue);
+          let res = user.getMany("userName",undefinedValue);
           expect(res)
             .to.eventually.to.be.rejectedWith("IllegalArgumentException")
             .notify(done);
@@ -482,7 +981,7 @@ describe('user model validation', () => {
       it("should throw IllegalArgumentException for null attribute parameter ", (done) => {
         try {
           //replace validValue with a valid value for an attribute
-          let res = user.getMany(null,validValue);
+          let res = user.getMany(null,"pavithra");
           expect(res)
             .to.eventually.to.be.rejectedWith("IllegalArgumentException")
             .notify(done);
@@ -494,7 +993,7 @@ describe('user model validation', () => {
       it("should throw IllegalArgumentException for null value parameter ", (done) => {
         try {
           //replace attributeValue with a valid attribute name
-          let res = user.getMany(attributeValue,null);
+          let res = user.getMany("userName",null);
           expect(res)
             .to.eventually.to.be.rejectedWith("IllegalArgumentException")
             .notify(done);
