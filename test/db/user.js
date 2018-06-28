@@ -116,7 +116,8 @@ describe("db user testing", () => {
     enabledFlag: 1,
     deletedFlag: 0,
     activationStatus: "ACTIVE",
-    processingStatus: "AUTHORIZED"
+    processingStatus: "AUTHORIZED",
+    token: null
   };
   let object2 = {
     // add a valid user object
@@ -667,7 +668,7 @@ describe("db user testing", () => {
       createdDate: new Date(),
       processingStatus: "AUTHORIZED",
       enabledFlag: 1,
-      activationStatus:"ACTIVE"
+      activationStatus: "ACTIVE"
 
     };
     beforeEach((done) => {
@@ -719,5 +720,28 @@ describe("db user testing", () => {
     });
   });
 
-});
+  describe('testing update role', () => {
 
+    let id;
+
+    beforeEach((done) => {
+      user.deleteAll().then((res) => {
+        user.save(object1).then((res) => {
+          id = res._id;
+
+          done();
+
+        });
+      });
+    });
+
+    it('should update a token ', (done) => {
+      var res = user.updateToken(id, "ABVDHGAFDHTAFV$#$SDWGFGHASVHAVBV%5657623");
+      expect(res).to.eventually.be.a("object")
+        .to.have.property("token")
+        .to.eql("ABVDHGAFDHTAFV$#$SDWGFGHASVHAVBV%5657623")
+        .notify(done);
+    });
+  });
+
+});

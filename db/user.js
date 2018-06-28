@@ -15,23 +15,23 @@ module.exports.save = (object) => {
   return new Promise((resolve, reject) => {
     try {
       // any exception during construction will go to catch
-      bcrypt.genSalt(10, function (err, salt) {
-        bcrypt.hash(object.userPassword, salt, function (err, hash) {
+      bcrypt.genSalt(10, function(err, salt) {
+        bcrypt.hash(object.userPassword, salt, function(err, hash) {
           // Assign hashedPassword to your userPassword and salt to saltString ,store it in DB.
           object.userPassword = hash;
           object.saltString = salt;
           let user = new userCollection(object);
-          
+
           // on resolve we need to resolve this method
           // on reject or exception we reject it,
           // this is because the record either saves or it doesnt
           // in any case it does not save, is a reject
           user.save()
             .then((data) => {
-              
+
               data = data.toObject();
               delete data.userPassword;
-              delete data.saltString;              
+              delete data.saltString;
               debug("saved successfully", data);
               resolve(data);
             }, (err) => {
@@ -128,8 +128,8 @@ module.exports.findById = (id) => {
   return new Promise((resolve, reject) => {
     try {
       userCollection.findById({
-        _id: new ObjectId(id)
-      })
+          _id: new ObjectId(id)
+        })
         .then((res) => {
           debug("findById successfull: ", res);
           resolve(res);
@@ -153,36 +153,36 @@ module.exports.findById = (id) => {
 module.exports.authenticate = (credentials) => {
   return new Promise((resolve, reject) => {
     try {
-      let query ={
+      let query = {
         "userName": credentials.userName,
         "enabledFlag": credentials.enabledFlag,
         "application.applicationCode": credentials.applicationCode,
         "processingStatus": "AUTHORIZED"
-      };      
-      
+      };
+
       userCollection.findOne(query)
         .then((userObj) => {
-      
-          
+
+
           if (userObj) {
-            
-            
-            bcrypt.hash(credentials.userPassword, userObj.saltString, (err, hash) => {  
-             
-                          
+
+
+            bcrypt.hash(credentials.userPassword, userObj.saltString, (err, hash) => {
+
+
               // bcrypt.compare(userObj.userPassword,hash, (err, res) => {
-                if (hash === userObj.userPassword) {
-                  
-                  userObj = userObj.toObject();
-                  delete userObj.saltString;
-                  delete userObj.userPassword;
-                  debug("authentication successful: ", userObj);
-                  resolve(userObj);
-                } else {
-                  
-                  debug(`Authenttcation failed.Password Error`);
-                  reject("Authenttcation failed.Password Error");
-                }
+              if (hash === userObj.userPassword) {
+
+                userObj = userObj.toObject();
+                delete userObj.saltString;
+                delete userObj.userPassword;
+                debug("authentication successful: ", userObj);
+                resolve(userObj);
+              } else {
+
+                debug(`Authenttcation failed.Password Error`);
+                reject("Authenttcation failed.Password Error");
+              }
               // });
             });
           } else {
@@ -190,19 +190,55 @@ module.exports.authenticate = (credentials) => {
             reject("Invalid Credentials");
           }
         }, (err) => {
-          
+
           debug(`Invalid Credentials. ${err}`);
           reject(err);
         })
         .catch((e) => {
-          
+
           debug(`exception on authenticating user: ${e}`);
           reject(e);
         });
     } catch (e) {
-      
+
       debug(`caught exception: ${e}`);
       reject(e);
+    }
+  });
+};
+
+module.exports.updateToken = (id, token) => {
+  return new Promise((resolve, reject) => {
+    try {
+      userCollection.findById({
+        _id: new ObjectId(id)
+      }).then((user) => {
+        if (user) {
+          user.set({
+            token: token
+          });
+          user.save().then((res) => {
+            res = res.toObject();
+            delete res.userPassword;
+            delete res.saltString;
+            // delete res.token;
+            debug(`Token updated successfully ${res}`);
+            resolve(res);
+          }).catch((e) => {
+            debug(`failed to update ${e}`);
+            reject(e);
+          });
+        } else {
+          debug(`user not found with id, ${id}`);
+          reject(`There is no such user with id:${id}`);
+        }
+      }).catch((e) => {
+        debug(`exception on update ${e}`);
+        reject(e.message);
+      });
+    } catch (e) {
+      debug(`caught exception ${e}`);
+      reject(e.message);
     }
   });
 };
