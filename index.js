@@ -26,7 +26,7 @@ var docketObject = {
 module.exports.user = {
     userSchema,
     userDBSchema
-}
+};
 module.exports.validate = (userObject) => {
     return new Promise((resolve, reject) => {
         try {
@@ -61,10 +61,9 @@ module.exports.save = (userObject) => {
             var res = validate(userObject, userSchema);
             debug("validation status: ", JSON.stringify(res));
             if (!res.valid) {
-                reject(res.errors);
-            }
-
-            // Other validations here
+                reject(res.errors[0]);
+            } else {                
+                // Other validations here
 
 
             // if the object is valid, save the object to the database
@@ -75,6 +74,7 @@ module.exports.save = (userObject) => {
                 debug(`failed to save with an error: ${e}`);
                 reject(e);
             });
+            }
         } catch (e) {
             docketObject.name = "user_ExceptionOnSave";
             docketObject.keyDataAsJSON = JSON.stringify(userObject);
@@ -92,7 +92,7 @@ module.exports.save = (userObject) => {
 module.exports.getAll = (limit) => {
     return new Promise((resolve, reject) => {
         try {
-            if (typeof(limit) == "undefined" || limit == null) {
+            if (typeof (limit) == "undefined" || limit == null) {
                 throw new Error("IllegalArgumentException: limit is null or undefined");
             }
             docketObject.name = "user_getAll";
@@ -124,7 +124,7 @@ module.exports.getById = (id) => {
     return new Promise((resolve, reject) => {
         try {
 
-            if (typeof(id) == "undefined" || id == null) {
+            if (typeof (id) == "undefined" || id == null) {
                 throw new Error("IllegalArgumentException: id is null or undefined");
             }
             docketObject.name = "user_getById";
@@ -214,12 +214,38 @@ module.exports.getMany = (attribute, value) => {
                 }
             }).catch((e) => {
                 debug(`failed to find ${e}`);
+                reject(e);
             });
         } catch (e) {
             docketObject.name = "user_ExceptionOngetMany";
             docketObject.keyDataAsJSON = `userObject ${attribute} with value ${value}`;
             docketObject.details = `caught Exception on user_getMany ${e.message}`;
             docketClient.postToDocket(docketObject);
+            debug(`caught exception ${e}`);
+            reject(e);
+        }
+    });
+};
+
+module.exports.authenticate = (credentials) => {
+    return new Promise((resolve, reject) => {
+        try {
+            
+            if (credentials == null || typeof credentials === 'undefined') {
+                throw new Error("IllegalArgumentException:credentials is null or undefined");
+            }
+            
+            userCollection.authenticate(credentials).then((data) => {
+                
+                debug(`Authentication successful ${data}`);
+                resolve(data);
+            }).catch((e) => {
+                
+                debug(`Authentication failed due to ${e}`);
+                reject(e);
+            });
+        } catch (e) {
+            
             debug(`caught exception ${e}`);
             reject(e);
         }

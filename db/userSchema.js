@@ -21,19 +21,23 @@ var userSchema = new mongoose.Schema({
     },
     application: {
         type: Object,
-        ref: 'Application'
+        ref: 'Application',
+        required:true
     },
     contact: {
         type: Object,
-        ref: 'Contact'
+        ref: 'Contact',
+        required:true
     },
     entity: {
         type: Object,
-        ref: 'Entity'
+        ref: 'Entity',
+        required:true
     },
     role: {
         type: Object,
-        ref: 'Role'
+        ref: 'Role',
+        required:true
     },
     userName: {
         type: String,
@@ -70,10 +74,17 @@ var userSchema = new mongoose.Schema({
         default: 0
     },
     activationStatus: {
-        type: String
-    },
-    processingStatus: {
-        type: String
+        type: String,
+        enum: ["ACTIVE", "INACTIVE"],
+        required: true
+      },
+      processingStatus: {
+        type: String,
+        enum: ['PENDING_AUTHORIZATION', 'AUTHORIZED', 'REJECTED'],
+        default: 'PENDING_AUTHORIZATION'
+      },
+    token:{
+        type:String
     }
 
 });

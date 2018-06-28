@@ -24,6 +24,9 @@ module.exports.schema = {
         "saltString": {
             "type": "string"
         },
+        "token":{
+            "type":"string"
+        },
         "entity": {
             "type": "object",
             "properties": {
@@ -236,12 +239,13 @@ module.exports.schema = {
         },
         "activationStatus": {
             "type": "string",
-            "enum": ["active", "inactive"]
-        },
-        "processingStatus": {
+            "enum": ["ACTIVE", "INACTIVE"]
+          },
+          "processingStatus": {
             "type": "string",
-            "enum": ["authorized", "unauthorized", "rejected"]
-        },
+            "enum": ["PENDING_AUTHORIZATION", "AUTHORIZED", "REJECTED"],
+            "default": "PENDING_AUTHORIZATION"
+          },
         "role": {
             "type": "object",
             "properties": {
