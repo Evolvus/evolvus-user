@@ -155,31 +155,22 @@ module.exports.authenticate = (credentials) => {
     try {
       let query = {
         "userName": credentials.userName,
-        "enabledFlag": credentials.enabledFlag,
+        "enabledFlag": 1,
         "application.applicationCode": credentials.applicationCode,
         "processingStatus": "AUTHORIZED"
       };
-
       userCollection.findOne(query)
         .then((userObj) => {
-
-
           if (userObj) {
-
-
             bcrypt.hash(credentials.userPassword, userObj.saltString, (err, hash) => {
-
-
               // bcrypt.compare(userObj.userPassword,hash, (err, res) => {
               if (hash === userObj.userPassword) {
-
                 userObj = userObj.toObject();
                 delete userObj.saltString;
                 delete userObj.userPassword;
                 debug("authentication successful: ", userObj);
                 resolve(userObj);
               } else {
-
                 debug(`Authenttcation failed.Password Error`);
                 reject("Authenttcation failed.Password Error");
               }
@@ -190,17 +181,14 @@ module.exports.authenticate = (credentials) => {
             reject("Invalid Credentials");
           }
         }, (err) => {
-
           debug(`Invalid Credentials. ${err}`);
           reject(err);
         })
         .catch((e) => {
-
           debug(`exception on authenticating user: ${e}`);
           reject(e);
         });
     } catch (e) {
-
       debug(`caught exception: ${e}`);
       reject(e);
     }
