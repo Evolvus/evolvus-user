@@ -11,6 +11,11 @@ module.exports.schema = {
             "minLength": 1,
             "maxLength": 64
         },
+        "userId": {
+            "type": "string",
+            "minLength": 6,
+            "maxLength": 35,
+        },
         "userName": {
             "type": "string",
             "minLength": 1,
@@ -24,8 +29,173 @@ module.exports.schema = {
         "saltString": {
             "type": "string"
         },
-        "token":{
-            "type":"string"
+        "token": {
+            "type": "string"
+        },
+        "supportedDateFormats": {
+            "type": "object",
+            "properties": {
+                "tenantId": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 64
+                },
+                "formatCode": {
+                    "type": "string",
+                    "unique": true,
+                    "minLength": 1,
+                    "maxLength": 50
+                },
+                "timeFormat": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 50
+                },
+                "description": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100
+                },
+                "createdDate": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "lastUpdatedDate": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "createdBy": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100
+                },
+                "updatedBy": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100
+                },
+                "objVersion": {
+                    "type": "number"
+                },
+                "enabledFlag": {
+                    "type": "string",
+                    "default": "1",
+                    "enum": ["0", "1"]
+                }
+            },
+            "required": ["tenantId", "formatCode"]
+        },
+        "masterCurrency": {
+            "type": "object",
+            "properties": {
+                "tenantId": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 64
+                },
+                "currencyCode": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 5,
+                    "unique": true
+                },
+                "currencyName": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 50,
+
+                },
+                "decimalDigit": {
+                    "type": "string"
+
+                },
+                "delimiter": {
+                    "type": "string"
+                },
+                "createdDate": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "lastUpdatedDate": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "createdBy": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100
+                },
+                "updatedBy": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100
+                },
+                "objVersion": {
+                    "type": "number"
+                },
+                "enabledFlag": {
+                    "type": "string",
+                    "default": "1",
+                    "enum": ["0", "1"]
+                },
+                "currencyLocale": {
+                    "type": "string"
+                }
+            },
+            "required": ["tenantId", "currencyCode", "currencyName"]
+        },
+        "masterTimeZone": {
+            "type": Object,
+            "properties": {
+                "tenantId": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 64
+                },
+                "zoneCode": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 50
+                },
+                "zoneName": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 50
+                },
+                "offsetValue": {
+                    "type": "string"
+                },
+                "createdDate": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "lastUpdatedDate": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "createdBy": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100
+                },
+                "updatedBy": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100
+                },
+                "offSet": {
+                    "type": "string"
+                },
+                "objVersion": {
+                    "type": "number"
+                },
+                "enableFlag": {
+                    "type": "string",
+                    "default": "1",
+                    "enum": ["0", "1"]
+                }
+            },
+            "required": ["tenantId", "zoneCode", "zoneName"]
         },
         "entity": {
             "type": "object",
@@ -240,12 +410,27 @@ module.exports.schema = {
         "activationStatus": {
             "type": "string",
             "enum": ["ACTIVE", "INACTIVE"]
-          },
-          "processingStatus": {
+        },
+        "processingStatus": {
             "type": "string",
             "enum": ["PENDING_AUTHORIZATION", "AUTHORIZED", "REJECTED"],
             "default": "PENDING_AUTHORIZATION"
-          },
+        },
+        "dailyLimit": {
+            "type": "number",
+            "minLength": 16,
+            "maxLength": 16
+        },
+        "individualTransactionLimit": {
+            "type": "number",
+            "minLength": 16,
+            "maxLength": 16
+        },
+        "designation":{
+            "type":"string",
+            "minLength":6,
+            "maxLength":35
+        },
         "role": {
             "type": "object",
             "properties": {
@@ -364,6 +549,7 @@ module.exports.schema = {
                     "format": "date-time"
                 },
                 "enableFlag": {
+
                     "type": "number",
                     "default": 1
                 },
@@ -385,5 +571,10 @@ module.exports.schema = {
             }
         }
     },
-    "required": ["tenantId", "userName", "userPassword", "createdBy", "createdDate", "lastUpdatedDate", "activationStatus", "processingStatus"]
+    "required": ["tenantId", "userId","userName", "userPassword", "createdBy", "createdDate", "lastUpdatedDate", "activationStatus",
+        "processingStatus", "contact", "role", "entity", "supportedDateFormats", "masterCurrency", "masterTimeZone"]
 };
+
+
+
+
